@@ -21,7 +21,6 @@ public class ProductsServiceMongoDb implements ProductsService {
 
     @Override
     public Product save(Product product) {
-        System.out.println(product);
         return productMongoRepository.save(product);
     }
 
@@ -45,6 +44,7 @@ public class ProductsServiceMongoDb implements ProductsService {
         Optional<Product> productToUpdate = productMongoRepository.findById(productId);
         Product pr = productToUpdate.orElseThrow();
         pr.update(new ProductDto(product.getName(), product.getDescription(), product.getCategory(), product.getTags(), product.getPrice(), product.getImageUrl()));
+        productMongoRepository.save(pr);
         return pr;
     }
 }
